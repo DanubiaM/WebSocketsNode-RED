@@ -1,0 +1,150 @@
+[
+    {
+        "id": "28472a532df98d6c",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f2e7c2064aa272c8",
+        "type": "websocket out",
+        "z": "28472a532df98d6c",
+        "name": "",
+        "server": "a32f00797cbb0a56",
+        "client": "",
+        "x": 600,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "8dd668f172d1c5e0",
+        "type": "inject",
+        "z": "28472a532df98d6c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"nome\":\"Danubia\",\"value\":\"70\"}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "f2e7c2064aa272c8"
+            ]
+        ]
+    },
+    {
+        "id": "400db4745d8d0073",
+        "type": "template",
+        "z": "28472a532df98d6c",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{\n\"value\":{{payload}}\n\n}",
+        "output": "json",
+        "x": 380,
+        "y": 180,
+        "wires": [
+            [
+                "4a367e452a944bdf",
+                "f2e7c2064aa272c8"
+            ]
+        ]
+    },
+    {
+        "id": "acee015b6db779f4",
+        "type": "modbus-read",
+        "z": "28472a532df98d6c",
+        "name": "MODBUS READ",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "100",
+        "quantity": "1",
+        "rate": "100",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "7b84130e7ed2119a",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "400db4745d8d0073"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4a367e452a944bdf",
+        "type": "debug",
+        "z": "28472a532df98d6c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "a32f00797cbb0a56",
+        "type": "websocket-listener",
+        "path": "/graph-data",
+        "wholemsg": "false"
+    },
+    {
+        "id": "7b84130e7ed2119a",
+        "type": "modbus-client",
+        "name": "Schneider",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "tcpHost": "192.168.0.70",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": "1",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": "500",
+        "parallelUnitIdsAllowed": false
+    }
+]
